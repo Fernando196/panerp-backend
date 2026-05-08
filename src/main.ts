@@ -1,11 +1,11 @@
 import { NestFactory } from '@nestjs/core'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
-import { patchNestJsSwagger, ZodValidationPipe } from 'nestjs-zod'
+import {  ZodValidationPipe } from 'nestjs-zod'
 import { Logger } from '@nestjs/common'
 import { AppModule } from './app.module'
+import { TransformInterceptor } from './common/interceptors/transform.interceptor'
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter'
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor'
-import { TransformInterceptor } from './common/interceptors/transform.interceptor'
 
 async function bootstrap(): Promise<void> {
   const logger = new Logger('Bootstrap')
@@ -34,11 +34,9 @@ async function bootstrap(): Promise<void> {
     new TransformInterceptor(),
   )
 
-  // Swagger + Zod
-  patchNestJsSwagger()
   const config = new DocumentBuilder()
-    .setTitle('portales-admin-monorepo API')
-    .setDescription('API REST para portales-admin-monorepo')
+    .setTitle('PAN ERP API')
+    .setDescription('API REST para Panaderia ERP')
     .setVersion('1.0')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
@@ -46,6 +44,7 @@ async function bootstrap(): Promise<void> {
     )
     .build()
   const document = SwaggerModule.createDocument(app, config)
+  document.security = [{ 'access-token': [] }]
   SwaggerModule.setup('api/docs', app, document, {
     swaggerOptions: { persistAuthorization: true },
   })
