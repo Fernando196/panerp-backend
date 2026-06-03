@@ -21,7 +21,10 @@ export class AuthService {
 
   async login(dto: LoginDto) {
     const usuario = await this.usuarioRepo.findOne({
-      where: { email: dto.email, activo: true },
+      where: [
+        { email: dto.email, activo: true },
+        { nombreUsuario: dto.email, activo: true }
+      ],
       relations: ['rol'],
     });
     if (!usuario) throw new UnauthorizedException('Credenciales incorrectas');

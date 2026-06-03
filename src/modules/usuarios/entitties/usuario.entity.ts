@@ -12,6 +12,9 @@ export class Usuario {
   @Column({ length: 120 })
   nombre!: string
 
+  @Column({ length: 50, name:'nombre_usuario' })
+  nombreUsuario!: string
+
   @Column({ length: 180, unique: true })
   email!: string
 
