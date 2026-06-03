@@ -38,6 +38,7 @@ import { PasoReceta } from './modules/recetas/entitties/paso-receta.entity';
 import { SyncQueue } from './modules/sync/entitties/sync-queue.entity'
 import { Rol } from './modules/usuarios/entitties/rol.entity'
 import { Usuario } from './modules/usuarios/entitties/usuario.entity'
+import { CatalogosModule } from './modules/catalogos/catalogos.module'
 
 const entities = [
   Sesion,
@@ -86,7 +87,8 @@ const entities = [
     ProductosModule,
     RecetasModule,
     SyncModule,
-    UsuariosModule
+    UsuariosModule,
+    CatalogosModule
   ],
 })
 export class AppModule {}
