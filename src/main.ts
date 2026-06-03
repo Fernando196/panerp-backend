@@ -18,7 +18,7 @@ async function bootstrap(): Promise<void> {
 
   // CORS
   app.enableCors({
-    origin: process.env['FRONTEND_URL'] ?? 'http://localhost:3000',
+    origin: '*',
     credentials: true,
   })
 
@@ -50,7 +50,7 @@ async function bootstrap(): Promise<void> {
   })
 
   const port = parseInt(process.env['PORT'] ?? '3001', 10)
-  await app.listen(port)
+  await app.listen(port,'192.168.1.76')
 
   logger.log(`🚀 API corriendo en: http://localhost:${port}/api/v1`)
   logger.log(`📚 Swagger UI en:    http://localhost:${port}/api/docs`)
