@@ -3,7 +3,6 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import {  ZodValidationPipe } from 'nestjs-zod'
 import { Logger } from '@nestjs/common'
 import { AppModule } from './app.module'
-import { TransformInterceptor } from './common/interceptors/transform.interceptor'
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter'
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor'
 
@@ -31,7 +30,6 @@ async function bootstrap(): Promise<void> {
   // Interceptores globales
   app.useGlobalInterceptors(
     new LoggingInterceptor(),
-    new TransformInterceptor(),
   )
 
   const config = new DocumentBuilder()
