@@ -10,9 +10,15 @@ export class CatalogosController {
 
   // GET /clientes?search=xxx&tipo=tienda&bloqueado=true
   @Get('user-roles')
-  findAll(
+  findAllUserRoles(
     @Query('search') search?: string,
   ) {
-    return this.catalogoService.findAll({ search });
+    return this.catalogoService.findAllUserRoles({ search });
+  }
+  @Get('materia-prima')
+  findAllMateriaPrima(
+    @Query('search') search?: string,
+  ) {
+    return this.catalogoService.findAllCatMateriasPrimas({ search });
   }
 }
