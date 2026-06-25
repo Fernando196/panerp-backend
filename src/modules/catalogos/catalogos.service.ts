@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Rol } from '../usuarios/entitties/rol.entity';
-import { CategoriasMP } from './entitites/catalogo-mp.entity';
+import { CategoriasMP } from './entitites/categorias_mp.entity';
 
 @Injectable()
 export class CatalogosService {
@@ -11,7 +11,7 @@ export class CatalogosService {
     @InjectRepository(CategoriasMP) private categoriasMPRepo: Repository<CategoriasMP>
   ) {}
 
-  async findAllUserRoles(filtros: { search?: string; bloqueado?: string }) {
+  async findAllRoles(filtros: { search?: string; bloqueado?: string }) {
     const qb = this.clienteRepo.createQueryBuilder('c')
 
     if (filtros.search) {
@@ -23,6 +23,17 @@ export class CatalogosService {
   }
 
   async findAllCatMateriasPrimas(filtros: { search?: string; bloqueado?: string }) {
+    const qb = this.categoriasMPRepo.createQueryBuilder('c')
+
+    if (filtros.search) {
+      qb.andWhere('(c.nombre LIKE :s)', {
+        s: `%${filtros.search}%`,
+      });
+    }
+    return qb.orderBy('c.nombre', 'ASC').getMany();
+  }
+
+  async findAllCategoriasProductos(filtros: { search?: string; bloqueado?: string }) {
     const qb = this.categoriasMPRepo.createQueryBuilder('c')
 
     if (filtros.search) {
